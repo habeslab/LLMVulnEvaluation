@@ -1,0 +1,19 @@
+#pragma version 4
+// Sample TEAL code with weak access control
+
+// Store sender address
+txn Sender
+store 0
+
+// Check if sender is authorized (in this case, hardcoded to a specific address)
+addr SK5PCNVCHSZ3PK3BJS77UON33M7FFHKMCR4U7Z5PZFDW7UQNWS7TSZV7AM
+load 0
+==
+bz unauthorized
+
+int 1
+return
+
+unauthorized:
+int 0
+return

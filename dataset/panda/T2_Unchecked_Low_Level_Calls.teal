@@ -1,0 +1,24 @@
+#pragma version 4
+// Sample TEAL code with unchecked low level calls
+
+// Check for the application call
+txn TypeEnum
+int appl
+==
+bz not_app_call
+
+// Call another contract without checking the result
+byte "target_contract"
+app_opted_in
+bz not_opted_in
+
+int 1
+return
+
+not_app_call:
+int 0
+return
+
+not_opted_in:
+int 0
+return

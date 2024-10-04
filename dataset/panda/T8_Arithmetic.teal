@@ -1,0 +1,31 @@
+#pragma version 4
+// Sample TEAL code with arithmetic vulnerability
+
+// Check for the application call
+txn TypeEnum
+int appl
+==
+bz not_app_call
+
+// Perform unsafe arithmetic operation
+int 1000000000
+int 1000000000
+*
+store 0
+
+// Check if the result overflows (it won't in TEAL, but as an example)
+load 0
+int 0
+>
+bz overflow
+
+int 1
+return
+
+not_app_call:
+int 0
+return
+
+overflow:
+int 0
+return

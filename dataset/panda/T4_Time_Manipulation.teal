@@ -1,0 +1,29 @@
+#pragma version 4
+// Sample TEAL code with time manipulation vulnerability
+
+// Check for the application call
+txn TypeEnum
+int appl
+==
+bz not_app_call
+
+// Get the current round number
+global Round
+store 0
+
+// Check if the round is greater than a hardcoded value (time manipulation)
+load 0
+int 1000000
+>
+bz not_authorized
+
+int 1
+return
+
+not_app_call:
+int 0
+return
+
+not_authorized:
+int 0
+return

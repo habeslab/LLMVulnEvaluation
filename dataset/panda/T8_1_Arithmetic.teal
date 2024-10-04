@@ -1,0 +1,19 @@
+#pragma version 2
+
+// Arithmetic example in TEAL
+
+txn Amount
+int 1000
++
+
+// Check for overflow
+bnz arithmetic_safe
+
+err
+
+arithmetic_safe:
+    // Continue logic if arithmetic is safe
+    int 1
+    return
+
+

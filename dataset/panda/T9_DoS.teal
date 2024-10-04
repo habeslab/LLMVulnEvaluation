@@ -1,0 +1,31 @@
+#pragma version 4
+// Sample TEAL code with potential denial of service
+
+// Check for the application call
+txn TypeEnum
+int appl
+==
+bz not_app_call
+
+// Loop through operations causing potential denial of service
+int 0
+store 0
+do_while:
+load 0
+int 1000000
+<
+bz done
+
+load 0
+int 1
++
+store 0
+goto do_while
+
+done:
+int 1
+return
+
+not_app_call:
+int 0
+return

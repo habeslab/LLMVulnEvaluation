@@ -1,0 +1,42 @@
+#pragma version 4
+// Sample TEAL code with reentrancy vulnerability
+
+// Check for the application call
+txn TypeEnum
+int appl
+==
+bz not_app_call
+
+// Store sender address
+txn Sender
+store 0
+
+// Check if reentrant call
+global GroupSize
+int 2
+==
+bz not_reentrant
+
+// Get the second transaction in the group
+gtxn 1 TypeEnum
+int pay
+==
+bz not_reentrant
+
+// Check if the sender of both transactions is the same
+gtxn 1 Sender
+load 0
+==
+bz not_reentrant
+
+// Allow reentrant call
+int 1
+return
+
+not_app_call:
+int 0
+return
+
+not_reentrant:
+int 0
+return
